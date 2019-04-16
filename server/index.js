@@ -31,6 +31,7 @@ if (config.dev) {
 }
 
 Object.keys(apis).forEach(api => {
+  console.log(api);
   app.use(`/api/${api}`, apis[api]);
 });
 

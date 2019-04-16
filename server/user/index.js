@@ -1,5 +1,5 @@
+const Boom = require('boom');
 const UserModel = require('./model');
-
 /**
  * Creates an user
  * @param {Object} user
@@ -24,3 +24,21 @@ exports.create = async ({ username, password }) => {
  * @returns {Promise<Array>} array of users
  */
 exports.list = async () => UserModel.find({});
+
+/**
+ * Check if user's password match
+ * @param {Object} user
+ * @param {String} user.username
+ * @param {String} user.password
+ *
+ * @returns {Promise<Object>} matched user
+ */
+exports.getByPassword = async ({ username, password }) => {
+  const user = await UserModel.findOne({ username }).select('+password');
+
+  const match = await user.checkPassword(password);
+
+  if (match) return { ...user.toObject(), password: undefined };
+
+  throw Boom.badRequest('invalid_password');
+};
