@@ -2,7 +2,7 @@ import { render } from 'react-dom';
 import $ from 'jquery';
 import Popper from 'popper.js';
 import app from './App';
-import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 
 window.jQuery = $;
 window.$ = $;
