@@ -14,10 +14,8 @@ exports.list = async ({ page, limit = 20 } = {}) => {
 
 exports.get = ({ id }) => BookingModel.findById(id);
 
-exports.create = async ({ description, beginTs, endTs, responsible, place, room, people } = {}) => {
-  if (Number(beginTs) > Number(endTs)) throw Boom.badRequest('invalid_begin');
-
-  const bookings = await BookingModel.find({
+async function hasConflict({ place, room, beginTs, endTs, id }) {
+  const query = {
     place,
     room,
     $or: [
@@ -34,9 +32,55 @@ exports.create = async ({ description, beginTs, endTs, responsible, place, room,
         },
       },
     ],
+  };
+
+  if (id) query._id = { $ne: id }; // eslint-disable-line
+
+  const bookings = await BookingModel.countDocuments(query);
+
+  return bookings > 0;
+}
+
+exports.create = async ({ description, beginTs, endTs, responsible, place, room, people } = {}) => {
+  if (Number(beginTs) > Number(endTs)) throw Boom.badRequest('invalid_begin');
+
+  const conflict = await hasConflict({ beginTs, endTs, place, room });
+
+  if (conflict) throw Boom.badRequest('time_conflict');
+
+  return BookingModel.create({
+    description,
+    responsible,
+    place,
+    room,
+    people,
+    beginTs,
+    endTs,
   });
-
-  if (bookings.length) throw Boom.badRequest('time_conflict');
-
-  return BookingModel.create({ description, beginTs, endTs, responsible, place, room, people });
 };
+
+exports.update = async ({ id, description, beginTs, endTs, responsible, place, room, people } = {}) => {
+  if (Number(beginTs) > Number(endTs)) throw Boom.badRequest('invalid_begin');
+
+  const conflict = await hasConflict({ id, beginTs, endTs, place, room });
+
+  if (conflict) throw Boom.badRequest('time_conflict');
+
+  return BookingModel.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        description,
+        beginTs,
+        endTs,
+        responsible,
+        place,
+        room,
+        people,
+      },
+    },
+    { new: true },
+  );
+};
+
+exports.remove = ({ id }) => BookingModel.findByIdAndRemove(id);
