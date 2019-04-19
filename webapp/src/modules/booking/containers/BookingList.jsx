@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+import { EmptyState } from "../../../components";
+
 import * as actions from "../actions/";
 
 class BookingList extends Component {
@@ -12,13 +14,21 @@ class BookingList extends Component {
     fetch();
   }
   render() {
+    const { items, total } = this.props;
+    console.log(items, total);
+    if (!items.length) return <EmptyState />;
+
     return <div>BookingList</div>;
   }
 }
-const mapStateToProps = state => ({
-  ...state.booking.list,
-  fetching: state.booking.fetching
-});
+const mapStateToProps = state => {
+  console.log(state);
+
+  return ({
+    ...state.booking.list,
+    fetching: state.booking.fetching
+  })
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 

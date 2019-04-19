@@ -5,9 +5,8 @@ export function fetch() {
   return async dispatch => {
     try {
       const res = await get("/bookings");
-        console.log(res);
-      const { items } = res;
-      return dispatch({ type: actionTypes.fetching, value: items });
+      const { items, total } = res;
+      return dispatch({ type: actionTypes.fetch, value: { items, total } });
     } catch (error) {
       return dispatch({ type: actionTypes.error, error });
     }

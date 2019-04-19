@@ -1,8 +1,11 @@
 import actionTypes from "./actions/types";
+let session = window.sessionStorage.getItem("$appAuth")
+
+session = session && JSON.parse(session) || undefined;
 
 const initialState = {
-  logged: false,
-  credential: undefined,
+  logged: !!session,
+  credential: session,
   login: {
     username: "",
     password: "",
@@ -13,9 +16,9 @@ const initialState = {
 };
 
 export default function authReducer(state = initialState, action) {
-  console.log(state, action);
   switch (action.type) {
     case actionTypes.login:
+      window.sessionStorage.setItem("$appAuth", JSON.stringify(action.value));
       return {
         ...state,
         login: { ...initialState.login },

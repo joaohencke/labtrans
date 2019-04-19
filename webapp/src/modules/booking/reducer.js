@@ -3,18 +3,21 @@ import actionTypes from "./actions/types";
 const initialState = {
   fetching: false,
   list: {
-    items: []
+    items: [],
+    total: 0,
   }
 };
 
 export default function bookingsReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.fetch:
+    console.log(action)
       return {
         ...state,
         fetching: false,
         list: {
-          items: action.value
+          ...state.list,
+          ...action.value
         }
       };
     case actionTypes.FETCHING:
@@ -23,7 +26,6 @@ export default function bookingsReducer(state = initialState, action) {
         fetching: action.value
       };
     default:
-    console.log(action)
       return state;
   }
 }
