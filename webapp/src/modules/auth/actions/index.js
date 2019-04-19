@@ -15,7 +15,7 @@ export function login({ username, password }) {
         grant_type: "password"
       });
 
-      authorization(`Bearer ${res.access_token}`);
+      authorization(`${res.token_type} ${res.access_token}`);
       
       return dispatch({ type: actionTypes.login, value: res });
     } catch (e) {
