@@ -36,6 +36,8 @@ exports.list = async () => UserModel.find({});
 exports.getByPassword = async ({ username, password }) => {
   const user = await UserModel.findOne({ username }).select('+password');
 
+  if (!user) throw Boom.badRequest('invalid_password');
+
   const match = await user.checkPassword(password);
 
   if (match) return { ...user.toObject(), password: undefined };

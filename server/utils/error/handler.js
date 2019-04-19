@@ -7,7 +7,7 @@ const Boom = require('boom');
  * @param {Error} err error
  */
 module.exports = (res, err) => {
-  let error = Boom.isBoom(err) ? err : Boom.boomify(err);
+  let error = Boom.boomify(err, { statusCode: 400 });
   if (error.name === 'ValidationError') {
     error = Boom.boomify(error, {
       statusCode: 400,

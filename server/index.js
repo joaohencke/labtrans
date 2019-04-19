@@ -2,8 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
-// const docs = require('./_docs');
 const config = require('./__config');
 const apis = require('./_apis');
 const { handler } = require('./utils/error');
@@ -25,6 +25,8 @@ app.use(
     type: 'application/json',
   }),
 );
+
+app.use(cors('http://localhost:3000'));
 
 if (config.dev) {
   app.use(morgan('dev'));
