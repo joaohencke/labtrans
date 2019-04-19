@@ -19,21 +19,33 @@ class LoginComponent extends Component {
     // console.log(target.name);
     modelChange({ [e.target.name]: e.target.value });
   }
-  submit(e) {
+  async submit(e) {
     e.preventDefault();
 
     const { currentTarget } = e;
+    const {
+      username,
+      password,
+      login,
+      setSubmitting,
+      history,
+      modelChange
+    } = this.props;
 
-    if (!currentTarget.checkValidity()) return false;
-
-    const { username, password, login, setSubmitting } = this.props;
+    if (!currentTarget.checkValidity()) return modelChange({ validated: true });
 
     setSubmitting(true);
 
-    login({ username, password });
+    try {
+      await login({ username, password });
+      history.push("/bookings");
+      return null;
+    } catch (e) {
+      return e;
+    }
   }
   render() {
-    const { username, password, submitting, error,validated } = this.props;
+    const { username, password, submitting, error, validated } = this.props;
     return (
       <Container>
         <Card>
