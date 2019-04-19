@@ -16,7 +16,7 @@ export function login({ username, password }) {
       });
 
       authorization(`${res.token_type} ${res.access_token}`);
-      
+
       return dispatch({ type: actionTypes.login, value: res });
     } catch (e) {
       let value;

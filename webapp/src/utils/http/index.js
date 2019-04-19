@@ -37,3 +37,12 @@ export async function post(path, args, options) {
     throw (e.response && e.response.data) || e;
   }
 }
+
+export async function _delete(path, args) {
+  try {
+    const res = await instance.delete(path, args);
+    return res && res.data;
+  } catch(e) {
+    throw (e.response && e.response.data) || e;
+  }
+}

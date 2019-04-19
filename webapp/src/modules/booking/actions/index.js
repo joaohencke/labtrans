@@ -1,5 +1,5 @@
 import actionTypes from "./types";
-import { get } from "../../../utils/http";
+import { get, _delete } from "../../../utils/http";
 
 export function fetch() {
   return async dispatch => {
@@ -15,4 +15,17 @@ export function fetch() {
 
 export function setFetching(fetching) {
   return { type: actionTypes.fetching, value: fetching };
+}
+
+export function remove(id) {
+  return async dispatch => {
+    try {
+      await _delete(`/bookings/${id}`);
+
+      dispatch(fetch());
+      return dispatch({ type: actionTypes.remove });
+    } catch (error) {
+      return dispatch({ type: actionTypes.error, error });
+    }
+  };
 }
