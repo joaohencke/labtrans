@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import swal from "sweetalert";
 
 import * as actions from "../actions/";
-import { EmptyState, List } from "../../../components";
+import { List } from "../../../components";
 
 class BookingList extends Component {
   constructor(props) {
@@ -54,7 +54,12 @@ class BookingList extends Component {
         </Row>
         <Row>
           <Col>
-            <List headers={this.headers()} items={items} remove={(e)=> this.remove(e)} empty="Não existem registros a serem exibidos" />
+            <List
+              headers={this.headers()}
+              items={items}
+              remove={e => this.remove(e)}
+              empty="Não existem registros a serem exibidos"
+            />
           </Col>
         </Row>
       </Container>
