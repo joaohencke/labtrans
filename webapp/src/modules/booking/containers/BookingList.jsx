@@ -45,7 +45,7 @@ class BookingList extends Component {
     remove(entry._id);
   }
   render() {
-    const { items, total } = this.props;
+    const { items } = this.props;
 
     return (
       <Container>
@@ -66,14 +66,10 @@ class BookingList extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  console.log(state);
-
-  return {
-    ...state.booking.list,
-    fetching: state.booking.fetching
-  };
-};
+const mapStateToProps = state => ({
+  ...state.booking.list,
+  fetching: state.booking.fetching
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 

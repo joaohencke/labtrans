@@ -11,7 +11,6 @@ const initialState = {
 export default function bookingsReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.fetch:
-    console.log(action)
       return {
         ...state,
         fetching: false,
