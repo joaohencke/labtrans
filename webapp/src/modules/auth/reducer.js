@@ -1,7 +1,7 @@
 import actionTypes from "./actions/types";
 let session = window.sessionStorage.getItem("$appAuth")
 
-session = session && JSON.parse(session) || undefined;
+session = (session && JSON.parse(session)) || undefined;
 
 const initialState = {
   logged: !!session,
