@@ -39,7 +39,6 @@ class BookingList extends Component {
       buttons: true,
       dangerMode: true
     });
-    console.log(this)
     if (!sure) return;
 
     const { remove } = this.props;
@@ -47,9 +46,6 @@ class BookingList extends Component {
   }
   render() {
     const { items, total } = this.props;
-    console.log(items, total);
-
-    if (!items.length) return <EmptyState />;
 
     return (
       <Container>
@@ -58,8 +54,7 @@ class BookingList extends Component {
         </Row>
         <Row>
           <Col>
-            {!items.length && <EmptyState />}
-            <List headers={this.headers()} items={items} remove={(e)=> this.remove(e)} />
+            <List headers={this.headers()} items={items} remove={(e)=> this.remove(e)} empty="Não existem registros a serem exibidos" />
           </Col>
         </Row>
       </Container>

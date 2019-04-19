@@ -2,7 +2,8 @@ import React from "react";
 
 import { Table, Button } from "react-bootstrap";
 
-const List = ({ headers, items = [], remove }) => {
+const List = ({ headers, items = [], remove, empty }) => {
+  let headerLength = headers.length + (remove ? 1 : 0)
   return (
     <Table striped hover>
       <thead>
@@ -14,6 +15,11 @@ const List = ({ headers, items = [], remove }) => {
         </tr>
       </thead>
       <tbody>
+        {!items.length && (
+          <tr>
+            <td colSpan={headerLength}>{empty}</td>
+          </tr>
+        )}
         {items.map((item, idx) => (
           <tr key={idx}>
             {headers.map(h => (
@@ -21,11 +27,7 @@ const List = ({ headers, items = [], remove }) => {
             ))}
             {remove && (
               <td>
-                <Button
-                  type="button"
-                  onClick={() => remove(item)}
-                  size="sm"
-                >
+                <Button type="button" onClick={() => remove(item)} size="sm">
                   Remover
                 </Button>
               </td>
