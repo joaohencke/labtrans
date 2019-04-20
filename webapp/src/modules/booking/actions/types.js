@@ -4,5 +4,6 @@ export default {
   error: "BOOKINGS.ERROR",
   setPut: "BOOKINGS.SET.PUT",
   modelChange: "BOOKINGS.PUT.MODEL.CHANGE",
-  put: "BOOKINGS.PUT"
+  put: "BOOKINGS.PUT",
+  remove: "BOOKINGS.REMOVE"
 };

@@ -48,7 +48,7 @@ class BookingList extends Component {
     remove(entry._id);
   }
   render() {
-    const { items } = this.props;
+    const { items, history } = this.props;
 
     return (
       <Container>
@@ -67,6 +67,7 @@ class BookingList extends Component {
             <List
               headers={this.headers()}
               items={items}
+              edit={e=> history.push(`/bookings/${e._id}/edit`)}
               remove={e => this.remove(e)}
               empty="Não existem registros a serem exibidos"
             />

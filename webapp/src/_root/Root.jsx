@@ -5,6 +5,11 @@ import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { authorization } from "../utils/http";
 
+console.log(
+  "%cEspero que não vejam muitos problemas por aqui =P",
+  "color: red; font-weight: bold; font-size: 1rem;"
+);
+
 const Root = ({ route, location, logged, credential }) => {
   if (credential)
     authorization(`${credential.token_type} ${credential.access_token}`);
@@ -12,12 +17,9 @@ const Root = ({ route, location, logged, credential }) => {
   if (!logged && location.pathname !== "/login")
     return <Redirect to="/login" />;
 
-  console.log(
-    "%cEspero que não vejam muitos problemas por aqui =P",
-    "color: red; font-weight: bold; font-size: 1rem;"
+  return (
+    <Container style={{ padding: 20 }}>{renderRoutes(route.routes)}</Container>
   );
-
-  return <Container style={{ padding: 20 }}>{renderRoutes(route.routes)}</Container>;
 };
 
 const mapStateToProps = state => ({

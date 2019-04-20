@@ -12,6 +12,12 @@ export default [
     path: "/bookings/create",
     exact: true,
     component: BookingPut,
-    name: "booking-put"
+    name: "booking-put.create"
+  },
+  {
+    path: "/bookings/:id/edit",
+    exact: true,
+    component: BookingPut,
+    name: "booking-put.edit"
   }
 ];
