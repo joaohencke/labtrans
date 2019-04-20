@@ -21,7 +21,7 @@ npm start
 
 This will run the application server. The server will listen on http://localhost:8888 and the APIs will be avaiable on http://localhost:8888/api
 
-You can access a production build on your browser by accessing http://localhost:8888 or... otherwise... you can run a development following instructions [here](../webapp/README.md)
+You can access a production build on your browser by accessing http://localhost:8888 or... otherwise... you can run a development env following instructions [here](../webapp/README.md)
 
 ## The Project
 
