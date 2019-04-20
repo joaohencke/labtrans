@@ -5,6 +5,8 @@
 - [NodeJS >= 10.15.3](https://nodejs.org)
 - [MongoDB >= 4.0](https://www.mongodb.com/)
 
+You need a `mongod` instance running on port `27017`
+
 Installing project dependencies:
 
 ```bash
