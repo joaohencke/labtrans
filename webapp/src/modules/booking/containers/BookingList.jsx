@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import swal from "sweetalert";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -48,7 +48,7 @@ class BookingList extends Component {
     remove(entry._id);
   }
   render() {
-    const { items, history } = this.props;
+    const { items, history, fetching } = this.props;
 
     return (
       <Container>
@@ -64,13 +64,20 @@ class BookingList extends Component {
         </Row>
         <Row>
           <Col>
-            <List
-              headers={this.headers()}
-              items={items}
-              edit={e=> history.push(`/bookings/${e._id}/edit`)}
-              remove={e => this.remove(e)}
-              empty="Não existem registros a serem exibidos"
-            />
+            {fetching && (
+              <div className="text-center">
+                <Spinner animation="border" />
+              </div>
+            )}
+            {!fetching && (
+              <List
+                headers={this.headers()}
+                items={items}
+                edit={e => history.push(`/bookings/${e._id}/edit`)}
+                remove={e => this.remove(e)}
+                empty="Não existem registros a serem exibidos"
+              />
+            )}
           </Col>
         </Row>
       </Container>
