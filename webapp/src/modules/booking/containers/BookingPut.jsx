@@ -92,7 +92,6 @@ class BookingPut extends Component {
 
       return history.push("/bookings");
     } catch (e) {
-      console.log(e);
       return toastr.error(e.error, "Ops...");
     }
   }
