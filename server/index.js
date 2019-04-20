@@ -40,6 +40,19 @@ Object.keys(apis).forEach(api => {
 // error handling
 app.use((err, req, res, next) => handler(res, err));
 
+app.use('/', express.static(`${__dirname}/public`));
+app.use('/static/css', express.static(`${__dirname}/public/static/css`));
+app.use('/static/js', express.static(`${__dirname}/public/static/js`));
+
+app.all('/*', (req, res) => {
+  res
+    .status(200)
+    .set({
+      'content-type': 'text/html; charset=utf-8',
+    })
+    .sendFile(`${__dirname}/public/index.html`);
+});
+
 app.listen(config.port, () => console.log(`express listening on port ${config.port}`));
 
 module.exports = app;
