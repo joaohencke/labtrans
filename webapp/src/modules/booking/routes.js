@@ -1,10 +1,17 @@
-import BookingList from './containers/BookingList';
+import BookingList from "./containers/BookingList";
+import BookingPut from "./containers/BookingPut";
 
 export default [
   {
-    path: '/bookings',
+    path: "/bookings",
     exact: true,
     component: BookingList,
-    name: 'booking-list',
+    name: "booking-list"
   },
+  {
+    path: "/bookings/create",
+    exact: true,
+    component: BookingPut,
+    name: "booking-put"
+  }
 ];

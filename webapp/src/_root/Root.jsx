@@ -17,7 +17,7 @@ const Root = ({ route, location, logged, credential }) => {
     "color: red; font-weight: bold; font-size: 1rem;"
   );
 
-  return <Container>{renderRoutes(route.routes)}</Container>;
+  return <Container style={{ padding: 20 }}>{renderRoutes(route.routes)}</Container>;
 };
 
 const mapStateToProps = state => ({

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import swal from "sweetalert";
+import { Link } from "react-router-dom";
+import moment from "moment";
 
 import * as actions from "../actions/";
-import { List } from "../../../components";
+import { List, Breadcrumb } from "../../../components";
 
 class BookingList extends Component {
   constructor(props) {
@@ -21,14 +23,15 @@ class BookingList extends Component {
     fetch();
   }
   headers() {
-    const Header = (title, key) => ({ title, key });
+    const Header = (title, key, format) => ({ title, key, format });
+    const formatter = e => moment(e).format("DD/MM HH:mm");
     return [
       Header("#", "_id"),
       Header("Descrição", "description"),
       Header("Local", "place"),
       Header("Sala", "room"),
-      Header("Início", "beginTs"),
-      Header("Fim", "endTs")
+      Header("Início", "beginTs", formatter),
+      Header("Fim", "endTs", formatter)
     ];
   }
   async remove(entry) {
@@ -50,7 +53,14 @@ class BookingList extends Component {
     return (
       <Container>
         <Row>
-          <Col>BookingList</Col>
+          <Col md="4">
+            <Breadcrumb items={[{ text: "Lista de Reservas" }]} />
+          </Col>
+          <Col md={{ span: 4, offset: 4 }} className="text-right">
+            <Link to="/bookings/create">
+              <Button type="button">Novo</Button>
+            </Link>
+          </Col>
         </Row>
         <Row>
           <Col>

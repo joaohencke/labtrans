@@ -1,3 +1,5 @@
 import EmptyState from "./EmptyState";
 import List from "./List";
-export { EmptyState, List };
+import Breadcrumb from "./Breadcrumb";
+
+export { EmptyState, List, Breadcrumb };

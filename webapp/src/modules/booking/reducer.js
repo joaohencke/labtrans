@@ -4,7 +4,23 @@ const initialState = {
   fetching: false,
   list: {
     items: [],
-    total: 0,
+    total: 0
+  },
+  put: {
+    $isCreation: false,
+    submitting: false,
+    validated: false,
+    model: {
+      _id: "",
+      description: "",
+      place: "",
+      room: "",
+      responsible: "",
+      people: 0,
+      coffee: false,
+      begin: new Date(),
+      end: new Date()
+    }
   }
 };
 
@@ -19,10 +35,37 @@ export default function bookingsReducer(state = initialState, action) {
           ...action.value
         }
       };
-    case actionTypes.FETCHING:
+    case actionTypes.fetching:
       return {
         ...state,
         fetching: action.value
+      };
+    case actionTypes.setPut:
+      return {
+        ...state,
+        put: {
+          ...state.put,
+          ...action.value
+        }
+      };
+    case actionTypes.put: {
+      return {
+        ...state,
+        put: {
+          ...initialState.put
+        }
+      };
+    }
+    case actionTypes.modelChange:
+      return {
+        ...state,
+        put: {
+          ...state.put,
+          model: {
+            ...state.put.model,
+            ...action.value
+          }
+        }
       };
     default:
       return state;
