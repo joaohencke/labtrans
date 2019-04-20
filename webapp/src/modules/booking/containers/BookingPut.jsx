@@ -4,11 +4,6 @@ import { connect } from "react-redux";
 import DatePicker from "react-datepicker";
 import toastr from "toastr";
 import moment from "moment";
-import { Link } from "react-router-dom";
-
-import { Breadcrumb } from "../../../components";
-import { put, setPut, modelChange, get, resetModel } from "../actions/";
-
 import {
   Container,
   Card,
@@ -18,6 +13,9 @@ import {
   Col,
   Spinner
 } from "react-bootstrap";
+
+import { Breadcrumb } from "../../../components";
+import { put, setPut, modelChange, get, resetModel } from "../actions/";
 
 class BookingPut extends Component {
   constructor(props) {
