@@ -9,6 +9,7 @@ const initialState = {
   put: {
     $isCreation: false,
     submitting: false,
+    fetching: false,
     validated: false,
     model: {
       _id: "",
@@ -61,6 +62,7 @@ export default function bookingsReducer(state = initialState, action) {
         ...state,
         put: {
           ...state.put,
+          fetching: false,
           model: {
             ...action.value
           }
