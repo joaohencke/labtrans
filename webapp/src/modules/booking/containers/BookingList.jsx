@@ -28,6 +28,7 @@ class BookingList extends Component {
     return [
       Header("#", "_id"),
       Header("Descrição", "description"),
+      Header("Responsável", "responsible"),
       Header("Local", "place"),
       Header("Sala", "room"),
       Header("Início", "beginTs", formatter),
