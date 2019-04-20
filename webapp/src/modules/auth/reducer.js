@@ -18,6 +18,7 @@ const initialState = {
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.login:
+    case actionTypes.refreshToken:
       window.sessionStorage.setItem("$appAuth", JSON.stringify(action.value));
       return {
         ...state,

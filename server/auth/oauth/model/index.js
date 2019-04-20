@@ -4,7 +4,7 @@ const userManager = require('../../../user/');
 
 exports.getClient = () => ({ id: CLIENT_ID, grants: ['password', 'refresh_token'], client_secret: CLIENT_SECRET });
 
-function format({ token, type, expiresAt, clientId, userId }) {
+function format({ token, type, expiresAt, userId }) {
   const maps = {
     refresh_token: {
       expiresAt: 'refreshTokenExpiresAt',
@@ -16,7 +16,7 @@ function format({ token, type, expiresAt, clientId, userId }) {
     },
   };
 
-  const formatted = { client: { id: clientId }, user: { id: userId } };
+  const formatted = { client: { id: CLIENT_ID }, user: { id: userId } };
 
   formatted[maps[type].expiresAt] = expiresAt;
   formatted[maps[type].token] = token;
@@ -47,7 +47,7 @@ exports.saveToken = async (token, client, user) => {
     token: token.accessToken,
     expiresAt: token.accessTokenExpiresAt,
     type: 'access_token',
-    clientId: client.id,
+    clientId: CLIENT_ID,
     userId: user._id, //eslint-disable-line
   });
 
@@ -55,7 +55,7 @@ exports.saveToken = async (token, client, user) => {
     token: token.refreshToken,
     expiresAt: token.refreshTokenExpiresAt,
     type: 'refresh_token',
-    clientId: client.id,
+    clientId: CLIENT_ID,
     userId: user._id, //eslint-disable-line
   });
 
