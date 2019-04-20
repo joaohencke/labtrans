@@ -9,7 +9,7 @@ const { handler } = require('../error');
  */
 exports.struct = superstruct({
   types: {
-    numeric: v => !!v && !Number.isNaN(v),
+    numeric: v => !Number.isNaN(v),
     slotDate: v => {
       const valid = moment(v, 'DD-MM-YYYY', true).isValid();
 
