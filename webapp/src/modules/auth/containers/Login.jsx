@@ -15,8 +15,6 @@ class LoginComponent extends Component {
   }
   handle(e) {
     const { modelChange } = this.props;
-    // const { target } = e;
-    // console.log(target.name);
     modelChange({ [e.target.name]: e.target.value });
   }
   async submit(e) {
