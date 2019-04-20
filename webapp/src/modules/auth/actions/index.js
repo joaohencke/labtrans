@@ -68,7 +68,7 @@ addInterceptor("response")(null, async args => {
   const { data, config } = response;
 
   if (response.status !== 401 || data.error !== "invalid_token")
-    throw response.error;
+    throw response.data;
 
   const { refresh_token } = store.getState().auth.credential;
   try {

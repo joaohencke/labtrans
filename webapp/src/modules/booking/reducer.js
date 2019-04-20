@@ -81,6 +81,14 @@ export default function bookingsReducer(state = initialState, action) {
           }
         }
       };
+    case actionTypes.error:
+      return {
+        ...state,
+        put: {
+          ...state.put,
+          submitting: false
+        }
+      };
     default:
       return state;
   }

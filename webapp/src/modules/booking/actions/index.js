@@ -53,7 +53,6 @@ export function put(entity) {
       dispatch(fetch());
       return dispatch({ type: actionTypes.put });
     } catch (error) {
-      console.log(error);
       let msg = "Problemas na requisição. Tente novamente.";
 
       if (error.message.includes("Expected a value of"))
