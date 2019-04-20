@@ -11,7 +11,7 @@ writeRouter.post(
     if (req.is('json')) req.headers['content-type'] = 'application/x-www-form-urlencoded';
     next();
   },
-  oauth.token({ requireClientAuthorization: { password: false, refresh_token: false } }),
+  oauth.token({ /* accessTokenLifetime: 5, */ requireClientAuthorization: { password: false, refresh_token: false } }), // Remove comment to test the token refetch on front end
 );
 
 writeRouter.post('/revoke', oauth.authenticate(), oauth.Class.revoke());
