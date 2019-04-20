@@ -21,6 +21,8 @@ npm start
 
 This will run the application server. The server will listen on http://localhost:8888 and the APIs will be avaiable on http://localhost:8888/api
 
+You can access a production build on your browser by accessing http://localhost:8888 or... otherwise... you can run a development following instructions [here](../webapp/README.md)
+
 ## The Project
 
 ```
@@ -55,6 +57,8 @@ server
 │   ├── index.js // the controller of User
 └── └── model.js // the mongoose model of User
 ```
+
+The `public` folder, is the directory to put the bundled version (production build) to serve directly from the server.
 
 The Request Parameters can be found on the `router` file.
 
