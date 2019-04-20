@@ -58,6 +58,6 @@ The Request Parameters can be found on the `router` file.
 
 ```javascript
 readRouter.get('/',
-    validate({ page: 'numeric?', limit: 'numeric?' }, 'query'),  // this request accepts a optional querystring named 'page' and 'limit' which needs to be numeric. Will throw an exception if is anything else
+    validate({ page: 'numeric?', limit: 'numeric?' }, 'query'),  // this request accepts an optional querystring named 'page' and 'limit' which needs to be numeric. Will throw an exception if is anything else
     ....
 ```
