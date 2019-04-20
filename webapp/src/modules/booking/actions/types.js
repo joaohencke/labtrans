@@ -6,5 +6,6 @@ export default {
   modelChange: "BOOKINGS.PUT.MODEL.CHANGE",
   put: "BOOKINGS.PUT",
   remove: "BOOKINGS.REMOVE",
-  get: "BOOKINGS.GET"
+  get: "BOOKINGS.GET",
+  resetModel: "BOOKINGS.MODEL.RESET"
 };

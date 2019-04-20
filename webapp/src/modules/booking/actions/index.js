@@ -66,6 +66,10 @@ export function put(entity) {
   };
 }
 
+export function resetModel() {
+  return { type: actionTypes.resetModel };
+}
+
 export function setPut(value) {
   return {
     value,

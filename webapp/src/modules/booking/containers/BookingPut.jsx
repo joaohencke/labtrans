@@ -4,8 +4,10 @@ import { connect } from "react-redux";
 import DatePicker from "react-datepicker";
 import toastr from "toastr";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
-import { put, setPut, modelChange, get } from "../actions/";
+import { Breadcrumb } from "../../../components";
+import { put, setPut, modelChange, get, resetModel } from "../actions/";
 
 import {
   Container,
@@ -31,13 +33,14 @@ class BookingPut extends Component {
     this.submit = this.submit.bind(this);
   }
   async componentWillMount() {
-    const { setPut, match, get } = this.props;
+    const { setPut, match, get, resetModel } = this.props;
+
+    resetModel();
     const $isCreation = !match.params.id;
 
     setPut({ $isCreation });
     if ($isCreation) return;
     setPut({ fetching: true });
-    console.log(this.props.fetching);
     try {
       await get(match.params.id);
     } catch (e) {
@@ -96,7 +99,7 @@ class BookingPut extends Component {
     }
   }
   render() {
-    const { model, validated, fetching, submitting } = this.props;
+    const { model, validated, fetching, submitting, $isCreation } = this.props;
     const {
       description,
       room,
@@ -107,11 +110,19 @@ class BookingPut extends Component {
       people,
       responsible
     } = model;
-
+    const breadcrumb = [
+      { text: "Lista de Reservas", route: "/bookings" },
+      { text: $isCreation ? "Novo" : "Editar" }
+    ];
     const { rooms, places, responsibles } = this.state;
 
     return (
       <Container>
+        <Row>
+          <Col sm="4">
+            <Breadcrumb items={breadcrumb} />
+          </Col>
+        </Row>
         <Card>
           {fetching && (
             <Card.Body>
@@ -286,7 +297,7 @@ class BookingPut extends Component {
 const mapStateToProps = state => ({ ...state.booking.put });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ put, setPut, modelChange, get }, dispatch);
+  bindActionCreators({ put, setPut, modelChange, get, resetModel }, dispatch);
 
 export default connect(
   mapStateToProps,

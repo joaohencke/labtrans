@@ -9,7 +9,7 @@ const Item = ({ route, text, params }) => {
   }
 
   return (
-    <Link to={{ pathname: route, search: params }}>
+    <Link to={{ pathname: route, search: params }} className="breadcrumb-item">
       {text}
       {/* <a >{text}</a> */}
     </Link>
