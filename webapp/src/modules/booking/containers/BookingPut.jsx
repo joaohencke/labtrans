@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import toastr from "toastr";
 import moment from "moment";
 
-import { put, setPut, modelChange } from "../actions/";
+import { put, setPut, modelChange, get } from "../actions/";
 
 import { Container, Card, Form, Button, Row, Col } from "react-bootstrap";
 
@@ -22,10 +22,18 @@ class BookingPut extends Component {
     this.handle = this.handle.bind(this);
     this.submit = this.submit.bind(this);
   }
-  componentWillMount() {
-    const { route, setPut } = this.props;
+  async componentWillMount() {
+    const { setPut, match, get } = this.props;
+    const $isCreation = !match.params.id;
 
-    setPut({ $isCreation: route.path.includes("create") });
+    setPut({ $isCreation });
+    if ($isCreation) return;
+
+    try {
+      await get(match.params.id);
+    } catch (e) {
+      toastr.error(e, "Ops..");
+    }
   }
   handleDateChange(date, when) {
     const { modelChange } = this.props;
@@ -64,12 +72,12 @@ class BookingPut extends Component {
     setPut({ validated: true });
     if (!currentTarget.checkValidity())
       return toastr.error("Verifique o formulário", "Ops...");
-
+    setPut({ submitting: true });
     try {
       await put(model);
 
       toastr.success(
-        `Agendamento ${$isCreation ? "criado" : "editado"} com sucesso`
+        `Reserva ${$isCreation ? "criado" : "editado"} com sucesso`
       );
 
       return history.push("/bookings");
@@ -80,7 +88,16 @@ class BookingPut extends Component {
   }
   render() {
     const { model, validated } = this.props;
-    const { description, room, place, begin, end, coffee, people, responsible } = model;
+    const {
+      description,
+      room,
+      place,
+      begin,
+      end,
+      coffee,
+      people,
+      responsible
+    } = model;
 
     const { rooms, places, responsibles } = this.state;
 
@@ -220,7 +237,7 @@ class BookingPut extends Component {
                   />
                 </Col>
               </Form.Group>
-              {coffee && (
+              {(coffee || people > 0) && (
                 <Form.Group as={Row}>
                   <Form.Label column sm="2">
                     Número de pessoas
@@ -251,7 +268,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ put, setPut, modelChange }, dispatch);
+  bindActionCreators({ put, setPut, modelChange, get }, dispatch);
 
 export default connect(
   mapStateToProps,

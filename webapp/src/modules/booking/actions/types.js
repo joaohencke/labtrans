@@ -5,5 +5,6 @@ export default {
   setPut: "BOOKINGS.SET.PUT",
   modelChange: "BOOKINGS.PUT.MODEL.CHANGE",
   put: "BOOKINGS.PUT",
-  remove: "BOOKINGS.REMOVE"
+  remove: "BOOKINGS.REMOVE",
+  get: "BOOKINGS.GET"
 };

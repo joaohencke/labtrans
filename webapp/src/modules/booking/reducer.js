@@ -56,6 +56,17 @@ export default function bookingsReducer(state = initialState, action) {
         }
       };
     }
+    case actionTypes.get: {
+      return {
+        ...state,
+        put: {
+          ...state.put,
+          model: {
+            ...action.value
+          }
+        }
+      };
+    }
     case actionTypes.modelChange:
       return {
         ...state,
