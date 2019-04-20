@@ -33,7 +33,7 @@ export function login({ username, password }) {
         default:
           value = "Problemas na requisição.";
       }
-      return dispatch({ type: actionTypes.error, value });
+      throw dispatch({ type: actionTypes.error, value });
     }
   };
 }
@@ -58,7 +58,7 @@ export function token({ refresh_token }) {
 
       return dispatch({ type: actionTypes.refreshToken, value: res });
     } catch (e) {
-      throw dispatch({ type: actionTypes.error });
+      throw dispatch({ type: actionTypes.error, error: e });
     }
   };
 }

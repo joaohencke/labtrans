@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
-import { Container, Card, Form, Button, Spinner, Alert } from "react-bootstrap";
+import toastr from "toastr";
+import { Container, Card, Form, Button, Spinner } from "react-bootstrap";
 
 import * as actions from "../actions/";
 
@@ -41,11 +41,11 @@ class LoginComponent extends Component {
       history.push("/bookings");
       return null;
     } catch (e) {
-      return e;
+      return toastr.error(e.value, "Ops...");
     }
   }
   render() {
-    const { username, password, submitting, error, validated } = this.props;
+    const { username, password, submitting, validated } = this.props;
     return (
       <Container>
         <Card>
@@ -84,11 +84,6 @@ class LoginComponent extends Component {
                 )}
               </Button>
             </Form>
-            {error && (
-              <Alert variant="danger" style={{ marginTop: "10px" }}>
-                {error}
-              </Alert>
-            )}
           </Card.Body>
         </Card>
       </Container>
